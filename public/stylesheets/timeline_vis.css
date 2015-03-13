@@ -1,0 +1,57 @@
+    timeline_viz, input {
+      font: 12pt verdana;
+    }
+
+    /* custom styles for individual items, load this after vis.css */
+
+    .vis.timeline .item.green {
+      background-color: #2ca25f;
+      border-color: green;
+    }
+
+    /* create a custom sized dot at the bottom of the red item */
+    .vis.timeline .item.red {
+      background-color: red;
+      border-color: darkred;
+      color: white;
+      box-shadow: 0 0 10px gray;
+    }
+    .vis.timeline .item.dot.red {
+      border-radius: 10px;
+      border-width: 10px;
+    }
+    .vis.timeline .item.line.red {
+      border-width: 5px;
+    }
+    .vis.timeline .item.box.red {
+      border-radius: 0;
+      border-width: 2px;
+      font-size: 24pt;
+      font-weight: bold;
+    }
+
+    .vis.timeline .item.orange {
+      background-color: gold;
+      border-color: orange;
+    }
+    .vis.timeline .item.orange.selected {
+      /* custom colors for selected orange items */
+      background-color: orange;
+      border-color: orangered;
+    }
+
+    .vis.timeline .item.magenta {
+      background-color: magenta;
+      border-color: purple;
+      color: white;
+    }
+
+    /* our custom classes overrule the styles for selected events,
+       so lets define a new style for the selected events */
+    .vis.timeline .item.selected {
+      background-color: white;
+      border-color: black;
+      color: black;
+      box-shadow: 0 0 10px gray;
+    }
+    .visualatio

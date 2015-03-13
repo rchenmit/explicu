@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-//var mongo_conn="mongodb://localhost:27017/explicu";
-var mongo_conn="mongodb://readonly:readonly@ds049631.mongolab.com:49631/heroku_app33408747";
+var mongo_conn="mongodb://localhost:27017/explicu";
+//var mongo_conn="mongodb://readonly:readonly@ds049631.mongolab.com:49631/heroku_app33408747";
 var MongoClient = require('mongodb').MongoClient;
 
 /* GET home page. */
@@ -42,7 +42,7 @@ router.get('/filter', function(req, res) {
 /* API for fetching data from MongoDB*/
 var filters={
     Sex:{
-        type:'multiselect',
+        type:'yesno',
         options:['M','F']
     },
     Age:{
@@ -80,7 +80,7 @@ function build_query(filters,filter_state,query_obj){
     if (!(key in filters)){
         continue;
     }
-    if (filters[key]['type']==='multiselect'){
+    if (filters[key]['type']==='multiselect' || filters[key]['type']==='yesno'){
         if (filter_state[key].length==0 || filter_state[key].length==filters[key]['options'].length){
             continue;
         }
@@ -122,7 +122,6 @@ router.post('/api/filter',function(req,res){
             res.send(JSON.stringify([]));  
             return; 
         }
-        console.log(count);
         ret['count']=count;
         var chosen_cols={pid:1,'Marital Status':1,Race:1,Religion:1,Age:1,Sex:1,Mortality:1,_id:0};
         db.collection('patients').find(query_obj,chosen_cols).limit(100).toArray(function(err, items) {
@@ -131,21 +130,20 @@ router.post('/api/filter',function(req,res){
             res.send(JSON.stringify([]));  
             return; 
           }          
-          console.log(ret);
           var patients_reshaped=[];
           for (var i=0;i<items.length;i++){
             var pt=[];
-            pt.push(items[i]['pid']);
             pt.push(items[i]['Marital Status']);
             pt.push(items[i]['Race']);
             pt.push(items[i]['Religion']);
             pt.push(items[i]['Age']);
             pt.push(items[i]['Sex']);
             pt.push(items[i]['Mortality']);
+            var html='<a href="javascript:show_events('+items[i]['pid']+')">Show Events</a>';
+            pt.push(html);
             patients_reshaped.push(pt);
           }
           ret['patients']=patients_reshaped;
-          //console.log(ret)
           res.send(JSON.stringify(ret));  
         })
       })
@@ -153,7 +151,6 @@ router.post('/api/filter',function(req,res){
 })
 
 router.get('/api/autocomplete/:id',function(req,res){
-    console.log(req.params.id);
     var id=req.params.id;
     if (id==='icd9'){
         res.redirect("/icd9.json");
@@ -166,16 +163,50 @@ router.get('/api/autocomplete/:id',function(req,res){
 })
 
 router.get('/api/timeline/:pid',function(req,res){
-    console.log(req.params.pid);
+    var pid=parseInt(req.params.pid)
     MongoClient.connect(mongo_conn, function(err, db) {
       if(err) { 
         console.log(err); 
         res.send(JSON.stringify([])); 
         return;  
       }
-      res.send(JSON.stringify([]));  
+      db.collection('patients').findOne({'pid':pid},function(err,pt){
+          if(err || !pt) { 
+            console.log(err); 
+            res.send(JSON.stringify([])); 
+            return;  
+          }
+          var events=[]
+          var event_count=0;
+          items=['ICD9 Code','Medication','procedures']
+          for (var i=0;i<items.length;i++){
+              if (items[i] in pt && pt[items[i]]!=undefined){
+                var item = items[i];
+                for (var j=0;j<pt[item].length;j++){
+                    event_count++;
+                    var event=pt[items[i]][j];
+                    event.id=event_count;
+                    if (item==='ICD9 Code'){
+                        event.className='';
+                    } else if (item==='Medication'){
+                        event.className='green';
+                    } else if (item==='procedures'){
+                        event.className='orange';
+                    }
+                    events.push(event);
+                }
+              }
+          }
+          if ('DOD' in pt && pt['DOD'] != undefined){
+            var event={id:++event_count};
+            event.content='Mortality'
+            event.start=pt['DOD'];
+            event.className='red';
+            events.push(event);
+          }
+          res.send(JSON.stringify(events));  
+      })
     });
 })
-
 
 module.exports = router;

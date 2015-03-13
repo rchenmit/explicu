@@ -4,7 +4,7 @@ var filter_state={};
 
 var filters={
     Sex:{
-        type:'multiselect',
+        type:'yesno',
         options:['M','F']
     },
     Age:{
@@ -101,12 +101,29 @@ function create_individual_form_obj(name,type,options,parent_node,filter_state){
             $('#'+name_no_space+'_selected_container').append(item_to_add);
             update_page(filter_state);
         })
+    } else if (type==='yesno'){
+        var select=$('<select id="'+name_no_space+'"></select>');
+        select.append('<option>Both</option>');
+        for (var i=0;i<2;i++){
+            select.append('<option>'+options[i]+'</option>');
+        }
+        panel_body.append(select);
+        select.on('change',function(){
+            var val=select.val();
+            if (val==="Both"){
+                filter_state[name]=options;
+            } else {
+                filter_state[name]=val;
+            }
+            update_page(filter_state);
+        })
+        parent_node.append(panel);
     }
 }
 
 function create_all_form_obj(filters,filter_state,container_obj){
     for (key in filters){
-        if (filters[key]['type']==='multiselect'){
+        if (filters[key]['type']==='multiselect' || filters[key]['type']==='yesno'){
             filter_state[key]=filters[key]['options'].slice(0);
         } else if (filters[key]['type']==='range'){
             filter_state[key]={max:filters[key]['options']['max'],min:filters[key]['options']['min']};
@@ -119,10 +136,9 @@ function create_all_form_obj(filters,filter_state,container_obj){
     }
 }
 
-var loading_logo=$('<div style="position: absolute;top: 200px;right: 200px"><img src="//i.stack.imgur.com/MnyxU.gif"></div>');
-
 function update_page(filter_state){
     //if hitting performance issues, add apply button
+    var loading_logo=$('<div style="position: absolute;top: 200px;right: 200px"><img src="//i.stack.imgur.com/MnyxU.gif"></div>');
     $('body').append(loading_logo);
     $.ajax({
         url:'/api/filter',
@@ -156,7 +172,7 @@ function update_page(filter_state){
 
 $(document).ready(function(){
     create_all_form_obj(filters,filter_state,$('#filters_container'));
-
+    update_page(filter_state);
 })
 
 

@@ -18,13 +18,30 @@ block content
         h1(align="center") Filtering Patients
     div.container-fluid(style="margin-top:20px")
         div.col-md-8
-            div#canvas_container(style="width:100%;height:50px;padding:5px")
-                h3 Matched 
-                    span#npts 0
-            div#patient_list_container(style="width:100%;height:500px;padding:5px")
+            div#canvas_container(style="width:100%;height:150px;padding:5px")
+                h3 
+                    |Matched 
+                    |<span id="npts"> 0</span>
+                    | patients
+                h4 Mortality stats for current cohort:
+                table#mortality_table(style="width:100%")
+                    tr
+                        td 
+                            b No Mortality:&nbsp;  
+                            span#no_mortality 0
+                        td 
+                            b One Year:&nbsp;    
+                            span#mortality_one_year 0
+                        td 
+                            b One Year+:&nbsp;  
+                            span#mortality_one_year_plus  0   
+            div#patient_list_container(style="width:100%;height:500px;margin:5px")
                 table#patients
+            h4 Patient Timeline: 
+            a(name='timeline')
+            div#canvas(style="width:100%;height:100%;margin:5px;")
         div.col-md-4(style="padding:5px")
             h3 Filter Patients by: 
             div.panel-group#filters_container
-        div#canvas(style="width:100%;height:100%")
+        
             

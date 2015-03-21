@@ -16,8 +16,6 @@ div.row(style="align:center")
     a(target="_blank" href="mailto:rchen87@gatech.edu").btn.btn-block.btn-lg.btn-danger Contact Us
   div.col-md-3
 
-hr
-
 div.row(style="align:center")
     div.col-md-3
     div.col-md-6
@@ -43,4 +41,4 @@ div.row(style="align:center")
                     img(src="/images/dj.PNG", width="100px")
                 td William Dunn 
 
-
+hr

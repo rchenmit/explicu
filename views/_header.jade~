@@ -19,10 +19,10 @@
           a(href='/background') Background Info
         li(class=(menu === 'Filter patients' ? 'active' : ''))
           a(href='/filter') Visualization
-        //li(class=(menu === 'Timelines' ? 'active' : ''))
-          //a(href='/timelines') Timelines
+        li(class=(menu === 'Timelines' ? 'active' : ''))
+          a(href='/timelines') Timelines
         //li(class=(menu === 'Clustering' ? 'active' : ''))
-          //a(href='/clustering') Clustering
+          a(href='/clustering') Clustering
         li(class=(menu === 'Regression' ? 'active' : ''))
           a(href='/regression') Predictive modeling
         li(class=(menu === 'Contact' ? 'active' : ''))

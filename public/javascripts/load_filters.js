@@ -11,17 +11,9 @@ var filters={
         type:'range',
         options:{max:100,min:0,step:1}
     },
-    'Marital Status':{
-        type:'multiselect',
-        options:['MARRIED','SINGLE','WIDOWED','DIVORCED','SEPARATED','UNKNOWN','LIFE PARTNER']
-    },
     Race:{
         type:'multiselect',
         options:["WHITE","ASIAN","BLACK","UNKNOWN","OTHER","MULTI RACE ETHNICITY","AMERICAN INDIAN","PACIFIC ISLANDER"]
-    },
-    Religion:{
-        type:'multiselect',
-        options:['EPISCOPALIAN','GREEK ORTHODOX','JEWISH','OTHER','BUDDHIST','PROTESTANT QUAKER','CATHOLIC','NOT SPECIFIED','UNOBTAINABLE']
     },
     'Medication':{
         type:'multiselect_autocomplete',
@@ -35,6 +27,186 @@ var filters={
         type:'multiselect',
         options:['No','1 Year','1 Year+']
     },
+    'Myocardial infarction':{
+        type:'yesno',
+        options:['Yes','No']
+    },    
+    'Congestive heart failure':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Peripheral vascular disease':{
+        type:'yesno',
+        options:['Yes','No']
+    },    
+    'Cerebrovascular disease':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Dementia':{
+        type:'yesno',
+        options:['Yes','No']
+    },    
+    'Chronic pulmonary disease':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Rheumatic disease':{
+        type:'yesno',
+        options:['Yes','No']
+    },    
+    'Peptic ulcer disease':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Mild liver disease':{
+        type:'yesno',
+        options:['Yes','No']
+    },    
+    'Diabetes without chronic complication':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Diabetes with chronic complication':{
+        type:'yesno',
+        options:['Yes','No']
+    },    
+    'Hemiplegia or paraplegia':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Renal disease':{
+        type:'yesno',
+        options:['Yes','No']
+    },    
+    'Any malignancy':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Moderate or severe liver disease':{
+        type:'yesno',
+        options:['Yes','No']
+    },    
+    'Metastatic solid tumor':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'AIDS or HIV':{
+        type:'yesno',
+        options:['Yes','No']
+    },    
+    'Cardiac arrhythmias':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Valvular disease':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Pulmonary circulation disorders':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Peripheral vascular disorders':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Hypertension, uncomplicated':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Paralysis':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Other neurological disorders':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Chronic pulmonary disease':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Diabetes, uncomplicated':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Diabetes, complicated':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Hypothyroidism':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Renal failure':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Liver disease':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Peptic Ulcer Disease excluding bleeding':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Lymphoma':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Metastatic cancer':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Solid tumor without metastasis':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Rheumatoid arthritis or collagen vascular disease':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Coagulopathy':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Obesity':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Weight loss':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Fluid and electrolyte disorders':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Blood loss anemia':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Deficiency anemia':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Alcohol Abuse':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Drug abuse':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Psychoses':{
+        type:'yesno',
+        options:['Yes','No']
+    },
+    'Depression':{
+        type:'yesno',
+        options:['Yes','No']
+    }
 };
 
 
@@ -51,6 +223,7 @@ function create_individual_form_obj(name,type,options,parent_node,filter_state){
         for (var i=0;i<options.length;i++){
             var checkbox=$('<input type="checkbox" name="'+name+'_checkbox" value="'+options[i]+'" checked="checked"> '+options[i]+'</input><br>');
             checkbox.on('click',function(){
+                $(this).parents('div.panel-collapse').prev().css('background-color','#FFFF99');
                 if (this.checked){
                     if (filter_state[name].indexOf($(this).val())<0){
                         filter_state[name].push($(this).val())
@@ -68,6 +241,7 @@ function create_individual_form_obj(name,type,options,parent_node,filter_state){
         panel_body.append(slider);
         parent_node.append(panel);
         $('#'+name_no_space+'_slider').slider({}).on('slideStop',function(event){
+            $(this).parents('div.panel-collapse').prev().css('background-color','#FFFF99');
             filter_state[name].min=event.value[0];
             filter_state[name].max=event.value[1];
             update_page(filter_state);
@@ -82,10 +256,12 @@ function create_individual_form_obj(name,type,options,parent_node,filter_state){
         },'json');
         $('\xa0\xa0 <span class="glyphicon glyphicon-plus" aria-hidden="true" id="'+name_no_space+'_add_button"></span><br><div id="'+name_no_space+'_selected_container"></div>').insertAfter('#'+name_no_space+'_textbox');
         $('#'+name_no_space+'_add_button').click(function(){
+            $(this).parents('div.panel-collapse').prev().css('background-color','#FFFF99');
             var chosen_item=$('#'+name_no_space+'_textbox').val();
             if (filter_state[name].indexOf(chosen_item) >-1){
                 return false;
             }
+            $('#'+name_no_space+'_textbox').val('');
             filter_state[name].push(chosen_item);
             var item_to_add=$('<div style="padding:4px;"></div>');
             item_to_add.append('<span>'+chosen_item+'</span>');
@@ -109,11 +285,12 @@ function create_individual_form_obj(name,type,options,parent_node,filter_state){
         }
         panel_body.append(select);
         select.on('change',function(){
+            $(this).parents('div.panel-collapse').prev().css('background-color','#FFFF99');
             var val=select.val();
             if (val==="Both"){
                 filter_state[name]=options;
             } else {
-                filter_state[name]=val;
+                filter_state[name]=[val];
             }
             update_page(filter_state);
         })
@@ -146,7 +323,6 @@ function update_page(filter_state){
         dataType:'json',
         data:{filter_state:JSON.stringify(filter_state),},
         success:function(data){
-            $('#npts').text(data['count']);
             if (table_init){
                 $("#patients").dataTable().fnDestroy();
             }
@@ -154,17 +330,25 @@ function update_page(filter_state){
             console.log(data);
             $("#patients").dataTable({
                 "data": data['patients'],
+                "bFilter": false,
                 "columns":[
-                    { "title": "Marital Status" },
                     { "title": "Race" },
-                    { "title": "Religion" },
                     { "title": "Age" },
                     { "title": "Sex" },
                     { "title": "Mortality" },
+                    { "title": "" },
                     { "title": "" }
                 ],
                 autoWidth:true
             });
+            var total_pts=data['count'];
+            $('#npts').text(total_pts);         
+            var no_mort=data['mortality_stat']['No'];
+            var one_year=data['mortality_stat']['1 Year'];   
+            var one_year_plus=data['mortality_stat']['1 Year+']; 
+            $('#no_mortality').text(no_mort+' ('+Math.round(no_mort/total_pts*100*100)/100+'%)');
+            $('#mortality_one_year').text(one_year+' ('+Math.round(one_year/total_pts*100*100)/100+'%)');
+            $('#mortality_one_year_plus').text(one_year_plus+' ('+Math.round(one_year_plus/total_pts*100*100)/100+'%)');
             loading_logo.remove();
         }
     })

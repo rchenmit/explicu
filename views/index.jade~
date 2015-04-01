@@ -11,6 +11,14 @@ block content
       div.col-md-4
         a(href="/timelines").btn.btn-block.btn-lg.btn-success Click Here For More
       div.col-md-4
+  section.featurette
+    include clustering_forMainpage.jade
+    br
+    div.row(style="background-color:white")
+      div.col-md-4
+      div.col-md-4
+        a(href="/clustering").btn.btn-block.btn-lg.btn-success Click Here For More
+      div.col-md-4
 
   section.featurette
     include regression_forMainpage.jade

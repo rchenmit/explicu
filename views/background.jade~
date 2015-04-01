@@ -1,0 +1,92 @@
+extends layout
+
+block content
+  section.section
+    div.container
+      div.featurette
+        h1 Background Information, Survey and Literature Review
+        p
+          | We are not a typical cryptic ICU data visualization system. Our innovation is novel, and it is an improvement upon various other ICU visualization tools out there. Other tools are hard to use. Ours is super easy to use.
+        h2 Survey of existing technology
+        br
+        p
+          | Before cooking up our visualization tool, we sat down and did a careful survey of existing technology. The review below summarizes our findings. Our review covers three (partially overlapping) areas: (1) visualization of raw clinical/ICU time series data, (2) results of machine learning classification and clustering with ICU data, and (3) interactive clustering and classification applications that attempt to address all of these problems.
+        h4 <strong> Visualizing time series data </strong>
+        p
+          | A number of studies have attempted to visualize raw time series data in the clinical/ICU setting.  In a review paper by Rind et al. [6], 14 different tools for interactively visualizing clinical data are summarized.  For example, Lifelines [13] is an interactive visualization tool showing a patient\'s temporal history and integrates data similar to that found in the MIMIC-II database. However, these timelines are limited to individual patients and does not support aggregated patient views to explore patterns across multiple histories. One of the strengths of using the MIMIC-II database is that it allows us to build a retrospective, exploratory visualization revealing patterns from 30K patient histories that doctors can leverage in real-time. Many of these tools use stacks of univariate plots over time.  Ordonez [7] attempts to improve on this paradigm by using a novel spider-plot visualization.  However, users of his tool mentioned that it could more accurately and confidently identify patient diagnoses.
+        
+        h4 <strong> Machine Learning</strong>
+        p
+          | Many studies have been performed on clinical data using machine learning methods [5]. More specifically, some studies have used machine learning to predict mortality and ventilator failure in ICU patients [8,9].  Gotz et al. [10] explored clustering using selected medication and diagnostic features, but nobody has reported clustering for the MIMIC-II database. Ghassemi et al. [12] used the MIMIC-II database for predictive modeling of ICU patient mortality. Most notably, these models are augmented with clinical notes, which have been shown to increase the modelâs predictive power. However, no interactive or visual display of the results was produced to supplement the models, where we will deliver both. Further, this paper suggests the scientific value of these models lies in validating similar models for disease and mortality. In contrast, we want our tool to serve as a decision and knowledge aid for physicians directly.
+        p
+          | <strong>Interactive Tools</strong>
+          br
+          | There are some visualizations for other applications of medical data such as personal medical histories [13], lung transplant home monitoring [14], and glucose levels [15]. Mirador [18] is a newer tool that allows for interactive exploration and visualization of large data sets, but is not specific to clinical data. The idea of interactive visual clustering for non-clinical data has been addressed by Desjardins et al. [11]. The only visualization tool for ICU data is the Medical Information Visualization Assistant [16,17]. Unfortunately this tool suffers from âinformation overloadâ and only displays raw lab data, without any machine learning analytics or visualization.
+
+        h2 Our method
+        h4 <strong>Improvements on the current State-of-the-Art</strong>
+        p
+          | Our project has the following potential innovations: 1) Combination of visualization, timeline, clustering, and regression analysis as an interactive webtool; 2) novel results using the MIMIC-II data.  
+        h4 <strong>Data</strong>
+        p
+          Data was collected from the MIMIC-II database (https://mimic.physionet.org/).  The MIMIC-II database is freely available and contains high temporal resolution data including lab results, electronic documentation, and bedside monitor trends and waveforms.  Data for 1000 patients was parsed into a .csv format in which mortality and ICD-Diagnosis statuses for over 1000 diagnoses (features) were represented as Boolean variables for each patient.  
+        p
+          We also computed features for 31 high risk comorbid conditions (known as Elixhauser Comorbidity Measures) [19], which were based upon aggregations of diagnostic codes (ICD-9 codes). These include comorbidities such as congestive heart failure, coagulopathies, neurological disorders, etc.  Again, a Boolean representation was used to indicate presence or absence of a comorbidity.  We used this set of 31 features to do univariate regression on each of these 31 features. Furthermore, we did multivariate regression on specific subsets of these 31 features. 
+        h4 <strong>Interactive User Interface</strong>
+        p
+          | We created webpages using a combination of popular front end tools including JQuery, Twitter Bootstrap, and D3.js. We created views for the main page, the timelines, the clustering, and the regression. Some pictures of the views are shown in the figures below. We used Bower to install packages. All static code for front end stuff was stored in a directory branching off the root directory for the website . We are running the site on a t1.micro EC2 instance on Amazon AWS and are using node.js to run it. 
+        p
+                All associated pages for the site are linked from the home page. Javascript is leveraged in order to enhance the user experience with visually appealing elements such as animated scrolling, dropdown menus, and highlighted menus upon mouse rollover.
+        h4 <strong>K-means clustering</strong>
+        p 
+          | The matrix of 1000 patients and 31 comorbidities (features) was used for clustering. Clustering analysis, data reduction, and visualization was performed in Matlab using built-in functions princomp and kmeans to perform principle component analysis (PCA) and k-means clustering, respectively. The raw data was first standardized (centered and scaled) by subtracting the sample mean from each data point and then dividing by the sample standard deviation. Then, PCA analysis was performed on the standardized data and finally k-means clustering was performed to produce two patient clusters. Support for performing PCA before k-means clustering can be found in [20]. Clustered patient data were initially visualized using only the first two principle components for ease of viewing.
+        h4 <strong>Logistic Regression</strong>
+        p 
+          | MATLAB was used to perform logistic regression.  Comorbidity and mortality data was read into a cell array using the textscan() function.  These values were converted to double type, and the glmfit() function was used with the distribution set to âbinomial.â 2x2 confusion matrices were also made for each of the 31 comorbidity features.
+
+
+
+hr
+
+REFERENCES:
+
+1.	ICU Outcomes (Mortality and Length of Stay) Methods, Data Collection Tool and Data (2014). http://healthpolicy.ucsf.edu/content/icu-outcomes .
+
+2.	MIMIC II Database (2014). https://mimic.physionet.org .
+
+3.	Saeed M, Villarroel M, et al. (2011). Multiparameter Intelligent Monitoring in Intensive Care II (MIMIC-II): A public-access intensive care unit database. Crit Care Med. May 2011; 39(5): 952â960.
+
+4.	U.S. Markets for critical care patient management products (2014).  https://www.lifescienceintelligence.com/market-reports-page.php?id=A340 .
+
+5.	Esfandiari N, Babavalian MR, et al. (2014).  Knowledge discovery in medicine; Current issue and future trend.  Expert Systems with Applications 41: 4434-4463.
+
+6.	Rind A, Wang TD, et al. (2011).  Interactive Information Visualization to Query and Explore Electronic Health Records.  Foundations and Trends in HumanâComputer Interaction 5(3): 207â298
+
+7.	OrdÃ³Ã±ez, P., Oates, T., et al. (2012): Visualization of multivariate time-series data in a neonatal ICU. IBM Journal of Research and Development 7:7.
+
+8.	Mikhno A, Ennett CM, et al. (2012). Prediction of Extubation Failure for Neonates with Respiratory Distress Syndrome Using the MIMIC-II Clinical Database. 34th Annual International Conference of the IEEE EMBS: San Diego, California, USA, August 28th - September 1st.
+
+9.	Cohen J, Shapiro M, et al. (2009): Prediction of extubation outcome: a randomised, controlled trial with automatic tube compensation vs. pressure support ventilation. Crit Care 13(1): R21. 
+
+10.	Gotz D, Sun J, et al. (2011).  Visual Cluster Analysis in Support of Clinical Decision Intelligence.  AMIA Annu Symp Proc: 481â490.
+
+11.	Desjardins M, McGlashan J, et al. (2007).  Interactive Visual Clustering.  In  Proceedings of the 10th International Conference on Intelligent User Interfaces.
+
+12.	Ghassemi M, et al. (2014).  Unfolding Physiological State: Mortality Modeling in Intensive Care Units. KDD Conference, August 2014.
+
+13.	Plaisant C, Mushlin R, et al. (1998). LifeLines: Using visualization to enhance navigation and analysis of patient records. In Proceedings of the AMIA Symposium: 76â80.
+
+14.	Pieczkiewicz D, Finkelstein SM, et al. (2007).  Design and evaluation of a web-based interactive visualization system for lung transplant home monitoring data. In Proceedings of the AMIA 2007 Symposium: 598â602.
+
+15.	Bade R, Schlechtweg S, et al. (2004). Connecting time-oriented data and information to a coherent interactive visualization. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems, (E. Dykstra-Erickson and M. Tscheligi, eds.), Vienna, Austria: 105-112. 
+
+16.	Faiola A, Boston-Clay C, et al. (2012). Managing patient health across diverse spaces: Using activity theory to model pervasive decision support. In Proceedings of the CHI2012 Workshop âBridging Clinical and Non-Clinical Health Practice: Opportunities and Challenges.â
+
+17.	Faiola A, Newlon C (2011). Advancing critical care in the ICU: A Human- Centered biomedical data visualization systems. In Ergonomics and Health Aspects, Proceedings of the International Conference on Human-Computer Interaction (HCII 2011), (M. M. Robertson, ed.): 119â128, Springer.
+
+18.	Mirador (2014).  http://fathom.info/mirador . 
+
+19.	Elixhauser A, Steiner C, Harris DR, Coffey RM. Comorbidity measures for use with administrative data. Med Care 1998;36:8-27.
+
+20.	Ding, Chris, (2004). K-means Clustering via Principle Component Analysis. http://machinelearning.wustl.edu/mlpapers/paper_files/icml2004_DingH04a.pdf.
+

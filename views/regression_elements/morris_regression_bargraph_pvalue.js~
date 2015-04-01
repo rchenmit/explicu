@@ -1,0 +1,141 @@
+new Morris.Bar({
+  // ID of the element in which to draw the chart.
+  element: 'regression_bargraph_pvalue',
+  // Chart data records -- each entry in this array corresponds to a point on
+  // the chart.
+/*
+  data: [
+      { comorbidity: 'Peptic ulcer disease', coefficient: 0 },
+      { comorbidity: 'Liver disease',  coefficient: -0.4255},
+      { comorbidity: 'Hypertension, uncomplicated', coefficient: -0.4255 },
+      { comorbidity: 'Psychosis', coefficient: -0.1126 },
+      { comorbidity: 'AIDS/HIV', coefficient: -0.7350 },
+      { comorbidity: 'Hypertension,complicated', coefficient: -0.7350 },
+      { comorbidity: 'Hypothyroidism', coefficient: -0.6273 },
+      { comorbidity: 'Cardiac arrhythmia', coefficient: -0.1555 },
+      { comorbidity: 'Depression', coefficient: -0.2501 },
+      { comorbidity: 'Neurological, other', coefficient: 1.7463 },
+      { comorbidity: 'Lymphoma', coefficient: 1.6913 }
+  ], */
+  data: [
+	{
+	    "Comorbidity":"Peptic Ulcer Disease",
+	    "p-Value":"0.999997922"
+	},
+	{
+	    "Comorbidity":"Liver Disease",
+	    "p-Value":"0.380167326"
+	},
+	{
+	    "Comorbidity":"Hypertension-Uncomplicated",
+	    "p-Value":"0.701553163"
+	},
+	{
+	    "Comorbidity":"Psychoses",
+	    "p-Value":"0.830282827"
+	},
+	{
+	    "Comorbidity":"AIDS/HIV",
+	    "p-Value":"0.500734781"
+	},
+	{
+	    "Comorbidity":"Hypothyroidism",
+	    "p-Value":"0.05589539"
+	},
+	{
+	    "Comorbidity":"Cardiac arrhythmia",
+	    "p-Value":"0.553756162"
+	},
+	{
+	    "Comorbidity":"Depression",
+	    "p-Value":"0.626208971"
+	},
+	{
+	    "Comorbidity":"Neurological-Other",
+	    "p-Value":"0.000135729"
+	},
+	{
+	    "Comorbidity":"Lymphoma",
+	    "p-Value":"0.007446149"
+	},
+	{
+	    "Comorbidity":"Rheumatoid Arthritis",
+	    "p-Value":"0.39346092"
+	},
+	{
+	    "Comorbidity":"Pulmonary Circulation Disorders",
+	    "p-Value":"0.403967673"
+	},
+	{
+	    "Comorbidity":"Kidney Failure",
+	    "p-Value":"0.043521722"
+	},
+	{
+	    "Comorbidity":"Fluid and Electrolyte Disorders",
+	    "p-Value":"1.19E-05"
+	},
+	{
+	    "Comorbidity":"Diabetes-Complicated",
+	    "p-Value":"0.67476575"
+	},
+	{
+	    "Comorbidity":"Diabetes-Uncomplicated",
+	    "p-Value":"0.182262725"
+	},
+	{
+	    "Comorbidity":"Chronic Pulmonary Disease",
+	    "p-Value":"0.081978605"
+	},
+	{
+	    "Comorbidity":"Congestive Heart Failure",
+	    "p-Value":"4.84E-08"
+	},
+	{
+	    "Comorbidity":"Coagulopathy",
+	    "p-Value":"0.020289395"
+	},
+	{
+	    "Comorbidity":"Peripheral Vascular Disorders",
+	    "p-Value":"0.24554832"
+	},
+	{
+	    "Comorbidity":"Deficiency Anemia",
+	    "p-Value":"0.576273428"
+	},
+	{
+	    "Comorbidity":"Tumor Without Metastasis",
+	    "p-Value":"0.099965004"
+	},
+	{
+	    "Comorbidity":"Alcohol Abuse",
+	    "p-Value":"0.999997903"
+	},
+	{
+	    "Comorbidity":"Metastatic Cancer",
+	    "p-Value":"8.02E-08"
+	},
+	{
+	    "Comorbidity":"Paralysis",
+	    "p-Value":"0.381721277"
+	},
+	{
+	    "Comorbidity":"Drug Abuse",
+	    "p-Value":"0.999997603"
+	},
+	{
+	    "Comorbidity":"Weight Loss",
+	    "p-Value":"0.010651613"
+	},
+	{
+	    "Comorbidity":"Blood Loss Anemia",
+	    "p-Value":"0.027740456"
+	}
+    ],
+  // The name of the data record attribute that contains x-values.
+  xkey: 'Comorbidity',
+  // A list of names of data record attributes that contain y-values.
+  ykeys: ['p-Value'],
+  // Labels for the ykeys -- will be displayed when you hover over the
+  // chart.
+  labels: ['p-Value for this covariate']
+});

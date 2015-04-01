@@ -1,0 +1,63 @@
+html, body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  height: 100%;
+  width: 100%;
+}
+
+a {
+  color: #00B7FF;
+}
+
+hr {
+    border: none;
+    height:1px;
+    color:#333;
+    background-color:#333;
+}
+
+.navbar {
+    background-color: #9ecae1 ! important;
+}
+.navbar .nav > li > a {
+    color: #2a353f;
+}
+.navbar li a:hover {
+    background-color: #fc9272 ! important;
+}
+
+.navbar-header  a{
+    color: red;
+}
+.navbar-header a:hover {
+    background-color: black ! important;
+    color: #bcbddc ! important;
+}
+.nav a {
+    font-size:16px;
+}
+
+.about {
+  padding: 80px 0;
+  background: #08306b; 
+  color: white;
+}
+
+.featurette-light {
+    padding: 80px 0;
+    background: #c6dbef;
+}
+
+.featurette-dark {
+    padding: 80px 0;
+    background: #252525;
+    color: white;
+}
+
+.featurette {
+    padding: 80px 10%;
+}
+
+.section {
+    padding: 0;
+    width: 100%;
+}

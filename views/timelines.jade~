@@ -1,0 +1,6 @@
+extends layout
+
+block content
+  section.section
+    div.container
+      include timeline_elements/_timeline_elements.jade

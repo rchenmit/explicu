@@ -1,0 +1,23 @@
+head
+
+div.featurette-light(align="center")
+  span
+    h1(style="color-blue" align="center")
+      include ../_explicu_name.jade
+    br
+  span
+    h3(align="center") Regression Results
+  br
+  p This page details some of the regression results.
+
+
+div.featurette(align="center")  
+  h1 Which risk factors are important?
+  include _regressiontable.jade
+
+div.featurette(align="center")  
+  h1 Which risk factors are important?
+  include _regression_bargraph.jade
+
+br
+br

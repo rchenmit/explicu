@@ -1,0 +1,356 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Patient Timeline</title>
+
+ <style type="text/css">
+    timeline_viz, input {
+      font: 12pt verdana;
+    }
+
+    /* custom styles for individual items, load this after vis.css */
+
+    .vis.timeline .item.green {
+      background-color: #2ca25f;
+      border-color: green;
+    }
+
+    /* create a custom sized dot at the bottom of the red item */
+    .vis.timeline .item.red {
+      background-color: red;
+      border-color: darkred;
+      color: white;
+      box-shadow: 0 0 10px gray;
+    }
+    .vis.timeline .item.dot.red {
+      border-radius: 10px;
+      border-width: 10px;
+    }
+    .vis.timeline .item.line.red {
+      border-width: 5px;
+    }
+    .vis.timeline .item.box.red {
+      border-radius: 0;
+      border-width: 2px;
+      font-size: 24pt;
+      font-weight: bold;
+    }
+
+    .vis.timeline .item.orange {
+      background-color: gold;
+      border-color: orange;
+    }
+    .vis.timeline .item.orange.selected {
+      /* custom colors for selected orange items */
+      background-color: orange;
+      border-color: orangered;
+    }
+
+    .vis.timeline .item.magenta {
+      background-color: magenta;
+      border-color: purple;
+      color: white;
+    }
+
+    /* our custom classes overrule the styles for selected events,
+       so lets define a new style for the selected events */
+    .vis.timeline .item.selected {
+      background-color: white;
+      border-color: black;
+      color: black;
+      box-shadow: 0 0 10px gray;
+    }
+    .visualatio
+  </style>
+
+  <script src="../../dist/vis.js"></script>
+  <link href="../../dist/vis.css" rel="stylesheet" type="text/css" />
+</head>
+<div class="timeline_viz">
+<br>
+Patient 1:
+<div  id="visualization1"></div>
+<br>
+Patient 2:
+<div id="visualization2"></div>
+<br>
+Patient 3:
+<div id="visualization3"></div>
+<br>
+Patient 4:
+<div id="visualization4"></div>
+<br>
+Patient 5:
+<div id="visualization5"></div>
+
+<script type="text/javascript">
+  // DOM element where the Timeline will be attached
+  var container1 = document.getElementById('visualization1');
+  var container2 = document.getElementById('visualization2');
+  var container3 = document.getElementById('visualization3');
+  var container4 = document.getElementById('visualization4');
+  var container5 = document.getElementById('visualization5');
+
+  // Create a DataSet (allows two way data-binding)
+  var items1 = new vis.DataSet([
+{id:1, content:'276.1-Hyposmolality and/or hyponatremia',start:497646,className:''},
+{id:2, content:'276.5-Volume depletion',start:497338,className:''},
+{id:3, content:'285.9-Anemia unspecified',start:497617,className:''},
+{id:4, content:'401.9-HYPERTENSION NOS',start:497534,end:497646,className:''},
+{id:5, content:'427.31-ATRIAL FIBRILLATION',start:497534,end:497646,className:''},
+{id:6, content:'MED112-Amiodarone',start:497534,end:497353,className:'green'},
+{id:7, content:'MED115-Diltiazem',start:497348,className:'green'},
+{id:8, content:'MED118-Fentanyl',start:497534,end:497633,className:'green'},
+{id:9, content:'MED120-Levophed-k',start:497534,end:497628,className:'green'},
+{id:10, content:'MED124-Midazolam',start:497534,end:497633,className:'green'},
+{id:11, content:'MED126-Morphine Sulfate',start:497655,className:'green'},
+{id:12, content:'MED128-Neosynephrine-k',start:497347,end:497556,className:'green'},
+{id:13, content:'MED131-Propofol',start:497347,end:497556,className:'green'},
+{id:14, content:'MED25-Heparin',start:497347,end:497655,className:'green'},
+{id:15, content:'MED43-Dopamine',start:497347,end:497627,className:'green'},
+{id:16, content:'PROC100109',start:497648,className:'orange'},
+{id:17, content:'PROC100323',start:497632,className:'orange'},
+{id:18, content:'PROC100364',start:497338,className:'orange'},
+{id:19, content:'PROC100368',start:497350,className:'orange'},
+{id:20, content:'PROC100369',start:497622,className:'orange'},
+{id:21, content:'PROC100390',start:497338,end:497534,className:'orange'},
+{id:22, content:'PROC100395',start:497553,className:'orange'},
+{id:23, content:'PROC100407',start:497553,className:'orange'},
+{id:24, content:'PROC100479',start:497619,className:'orange'},
+{id:25, content:'PROC100572',start:497347,className:'orange'},
+{id:26, content:'PROC100574',start:497347,end:497541,className:'orange'},
+{id:27, content:'PROC100685',start:497633,className:'orange'},
+{id:28, content:'PROC100701',start:497632,className:'orange'},
+{id:29, content:'PROC100951',start:497347,className:'orange'},
+{id:30, content:'PROC101645',start:497619,className:'orange'},
+{id:31, content:'PROC101648',start:497619,className:'orange'},
+{id:32, content:'PROC101729',start:497617,className:'orange'},
+{id:33, content:'PROC101749',start:497534,end:497619,className:'orange'},
+{id:34, content:'PROC101750',start:497347,className:'orange'},
+{id:35, content:'PROC101780',start:497352,end:497646,className:'orange'},
+{id:36, content:'PROC101782',start:497352,end:497619,className:'orange'},
+{id:37, content:'PROC101783',start:497352,end:497646,className:'orange'},
+{id:38, content:'PROC101834',start:497352,end:497622,className:'orange'},
+{id:39, content:'PROC101843',start:497352,end:497541,className:'orange'},
+{id:40, content:'mortality-1',start:497655,className:'red'}]);
+
+var items2=new vis.DataSet([
+{id:1, content:'276.5-Volume depletion',start:413199,className:''},
+{id:2, content:'287.5-THROMBOCYTOPENIA NOS',start:413199,className:''},
+{id:3, content:'401.9-HYPERTENSION NOS',start:413199,className:''},
+{id:4, content:'PROC100579',start:413199,className:'orange'},
+{id:5, content:'MED128-Neosynephrine-k',start:413200,end:413201,className:'green'},
+{id:6, content:'PROC101834',start:413201,className:'orange'},
+{id:7, content:'244.9-HYPOTHYROIDISM NOS',start:413419,className:'orange'},
+{id:8, content:'276.1-Hyposmolality and/or hyponatremia',start:413419,className:'orange'},
+{id:9, content:'287.5-THROMBOCYTOPENIA NOS',start:413419,className:'orange'},
+{id:10, content:'401.9-HYPERTENSION NOS',start:413419,className:'orange'},
+{id:11, content:'PROC101837',start:413422,className:'orange'},
+{id:12, content:'PROC100574',start:413423,className:'orange'},
+{id:13, content:'PROC101834',start:413423,className:'orange'},
+{id:14, content:'MED120-Levophed-k',start:413424,className:'green'},
+{id:15, content:'PROC101696',start:413424,className:'orange'},
+{id:16, content:'MED120-Levophed-k',start:413425,className:'green'},
+{id:17, content:'MED128-Neosynephrine-k',start:413425,className:'green'},
+{id:18, content:'MED131-Propofol',start:413425,className:'green'},
+{id:19, content:'MED45-Insulin',start:413425,className:'green'},
+{id:20, content:'PROC100416',start:413425,className:'orange'},
+{id:21, content:'PROC101749',start:413425,className:'orange'},
+{id:22, content:'PROC101783',start:413425,className:'orange'},
+{id:23, content:'MED120-Levophed-k',start:413426,className:'green'},
+{id:24, content:'MED131-Propofol',start:413426,className:'green'},
+{id:25, content:'MED45-Insulin',start:413426,className:'green'},
+{id:26, content:'PROC100576',start:413426,className:'orange'},
+{id:27, content:'PROC100622',start:413426,className:'orange'},
+{id:28, content:'PROC101780',start:413426,className:'orange'},
+{id:29, content:'PROC101835',start:413426,className:'orange'},
+{id:30, content:'MED120-Levophed-k',start:413427,className:'green'},
+{id:31, content:'MED131-Propofol',start:413427,className:'green'},
+{id:32, content:'MED45-Insulin',start:413427,className:'green'},
+{id:33, content:'MED131-Propofol',start:413428,className:'green'},
+{id:34, content:'MED45-Insulin',start:413428,end:413430,className:'green'},
+{id:35, content:'PROC101843',start:413430,className:'orange'},
+{id:36, content:'MED45-Insulin',start:413431,className:'green'},
+{id:37, content:'MED131-Propofol',start:413432,className:'green'},
+{id:38, content:'MED45-Insulin',start:413432,end:413435,className:'green'},
+{id:39, content:'MED120-Levophed-k',start:413436,className:'green'},
+{id:40, content:'MED45-Insulin',start:413436,className:'green'},
+{id:41, content:'MED51-Vasopressin',start:413436,className:'green'},
+{id:42, content:'PROC100006',start:413436,className:'orange'},
+{id:43, content:'MED120-Levophed-k',start:413437,className:'green'},
+{id:44, content:'MED128-Neosynephrine-k',start:413437,className:'green'},
+{id:45, content:'MED45-Insulin',start:413437,className:'green'},
+{id:46, content:'mortality-1',start:413437,className:'red'}]);
+
+
+var items3=new vis.DataSet([
+{id:1, content:'PROC101565',start:400148,className:'orange'},
+{id:2, content:'PROC100478',start:400154,className:'orange'},
+{id:3, content:'PROC101645',start:400154,className:'orange'},
+{id:4, content:'PROC101647',start:400154,className:'orange'},
+{id:5, content:'PROC100622',start:400155,className:'orange'},
+{id:6, content:'MED119-Epinephrine-k',start:400159,className:'green'},
+{id:7, content:'MED121-Nitroglycerine-k',start:400159,className:'green'},
+{id:8, content:'MED128-Neosynephrine-k',start:400159,className:'green'},
+{id:9, content:'MED131-Propofol',start:400159,className:'green'},
+{id:10, content:'MED45-Insulin',start:400159,className:'green'},
+{id:11, content:'PROC100462',start:400159,className:'orange'},
+{id:12, content:'PROC100465',start:400159,className:'orange'},
+{id:13, content:'PROC100606',start:400159,className:'orange'},
+{id:14, content:'MED119-Epinephrine-k',start:400160,className:'green'},
+{id:15, content:'MED121-Nitroglycerine-k',start:400160,className:'green'},
+{id:16, content:'MED128-Neosynephrine-k',start:400160,className:'green'},
+{id:17, content:'MED45-Insulin',start:400160,className:'green'},
+{id:18, content:'PROC100576',start:400165,className:'orange'},
+{id:19, content:'PROC100586',start:400165,className:'orange'},
+{id:20, content:'403.91-Hypertensive renal disease unspecified with renal failure',start:401164,className:'orange'},
+{id:21, content:'PROC101799',start:401164,className:'orange'},
+{id:22, content:'PROC100622',start:401166,className:'orange'},
+{id:23, content:'PROC100576',start:401168,className:'orange'},
+{id:24, content:'PROC101661',start:401168,className:'orange'},
+{id:25, content:'PROC100576',start:401174,className:'orange'},
+{id:26, content:'287.5-THROMBOCYTOPENIA NOS',start:401251,className:'orange'},
+{id:27, content:'403.91-Hypertensive renal disease unspecified with renal failure',start:401251,className:'orange'},
+{id:28, content:'MED120-Levophed-k',start:401251,className:'green'},
+{id:29, content:'PROC100622',start:401251,className:'orange'},
+{id:30, content:'MED120-Levophed-k',start:401252,className:'green'},
+{id:31, content:'PROC100576',start:401252,className:'orange'},
+{id:32, content:'MED25-Heparin',start:401253,end:401255,className:'green'},
+{id:33, content:'PROC101661',start:401257,className:'orange'},
+{id:34, content:'403.91-Hypertensive renal disease unspecified with renal failure',start:401351,className:'orange'},
+{id:35, content:'MED120-Levophed-k',start:401351,end:401352,className:'green'},
+{id:36, content:'PROC100576',start:401352,className:'orange'},
+{id:37, content:'PROC100622',start:401352,className:'orange'},
+{id:38, content:'PROC101837',start:401352,className:'orange'},
+{id:39, content:'MED120-Levophed-k',start:401353,className:'green'},
+{id:40, content:'PROC101661',start:401357,className:'orange'},
+{id:41, content:'PROC100586',start:401369,className:'orange'},
+{id:42, content:'MED118-Fentanyl',start:401993,className:'green'},
+{id:43, content:'MED120-Levophed-k',start:401993,className:'green'},
+{id:44, content:'MED124-Midazolam',start:401993,className:'green'},
+{id:45, content:'MED118-Fentanyl',start:401994,className:'green'},
+{id:46, content:'MED120-Levophed-k',start:401994,className:'green'},
+{id:47, content:'MED124-Midazolam',start:401994,className:'green'},
+{id:48, content:'mortality-0',start:401996,className:'default'}]);
+
+var items4=new vis.DataSet([
+{id:1, content:'244.9-HYPOTHYROIDISM NOS',start:188558,className:''},
+{id:2, content:'285.9-Anemia unspecified',start:188558,className:''},
+{id:3, content:'401.9-HYPERTENSION NOS',start:188558,className:''},
+{id:4, content:'PROC100479',start:188562,className:'orange'},
+{id:5, content:'PROC101645',start:188562,className:'orange'},
+{id:6, content:'PROC101648',start:188562,className:'orange'},
+{id:7, content:'PROC101729',start:188562,className:'orange'},
+{id:8, content:'MED120-Levophed-k',start:188565,className:'green'},
+{id:9, content:'MED128-Neosynephrine-k',start:188565,className:'green'},
+{id:10, content:'MED131-Propofol',start:188565,className:'green'},
+{id:11, content:'MED45-Insulin',start:188565,className:'green'},
+{id:12, content:'MED51-Vasopressin',start:188565,className:'green'},
+{id:13, content:'PROC100423',start:188565,className:'orange'},
+{id:14, content:'PROC100425',start:188565,className:'orange'},
+{id:15, content:'PROC100455',start:188565,className:'orange'},
+{id:16, content:'PROC100534',start:188565,className:'orange'},
+{id:17, content:'PROC100606',start:188565,className:'orange'},
+{id:18, content:'MED128-Neosynephrine-k',start:188566,className:'green'},
+{id:19, content:'MED131-Propofol',start:188566,className:'green'},
+{id:20, content:'MED45-Insulin',start:188566,className:'green'},
+{id:21, content:'MED51-Vasopressin',start:188566,className:'green'},
+{id:22, content:'MED128-Neosynephrine-k',start:188567,end:188569,className:'green'},
+{id:23, content:'244.9-HYPOTHYROIDISM NOS',start:189047,className:'green'},
+{id:24, content:'276.51-Dehydration',start:189047,className:'green'},
+{id:25, content:'401.9-HYPERTENSION NOS',start:189047,className:'green'},
+{id:26, content:'244.9-HYPOTHYROIDISM NOS',start:189344,className:'green'},
+{id:27, content:'401.9-HYPERTENSION NOS',start:189344,className:'green'},
+{id:28, content:'mortality-0',start:189714,className:'default'}]);
+
+var items5=new vis.DataSet([
+{id:1, content:'286.9-Other and unspecified coagulation defects',start:378474,className:''},
+{id:2, content:'401.9-HYPERTENSION NOS',start:378474,className:''},
+{id:3, content:'424.1-Aortic valve disorders',start:378474,className:''},
+{id:4, content:'427.31-ATRIAL FIBRILLATION',start:378474,className:''},
+{id:5, content:'PROC100574',start:378479,className:'orange'},
+{id:6, content:'MED117-Esmolol',start:378480,className:'green'},
+{id:7, content:'MED50-Nitroprusside',start:378480,className:'green'},
+{id:8, content:'MED117-Esmolol',start:378481,className:'green'},
+{id:9, content:'MED50-Nitroprusside',start:378481,className:'green'},
+{id:10, content:'MED117-Esmolol',start:378482,className:'green'},
+{id:11, content:'MED121-Nitroglycerine-k',start:378482,className:'green'},
+{id:12, content:'MED125-Milrinone',start:378482,className:'green'},
+{id:13, content:'MED128-Neosynephrine-k',start:378482,className:'green'},
+{id:14, content:'MED131-Propofol',start:378482,className:'green'},
+{id:15, content:'MED50-Nitroprusside',start:378482,className:'green'},
+{id:16, content:'PROC100434',start:378482,className:'orange'},
+{id:17, content:'PROC100548',start:378482,className:'orange'},
+{id:18, content:'PROC100605',start:378482,className:'orange'},
+{id:19, content:'PROC100606',start:378482,className:'orange'},
+{id:20, content:'PROC101783',start:378482,className:'orange'},
+{id:21, content:'MED112-Amiodarone',start:378483,className:'green'},
+{id:22, content:'MED120-Levophed-k',start:378483,className:'green'},
+{id:23, content:'MED121-Nitroglycerine-k',start:378483,className:'green'},
+{id:24, content:'MED125-Milrinone',start:378483,className:'green'},
+{id:25, content:'MED128-Neosynephrine-k',start:378483,className:'green'},
+{id:26, content:'MED131-Propofol',start:378483,className:'green'},
+{id:27, content:'MED45-Insulin',start:378483,className:'green'},
+{id:28, content:'PROC100009',start:378483,className:'orange'},
+{id:29, content:'MED112-Amiodarone',start:378484,className:'green'},
+{id:30, content:'MED120-Levophed-k',start:378484,className:'green'},
+{id:31, content:'MED121-Nitroglycerine-k',start:378484,className:'green'},
+{id:32, content:'MED125-Milrinone',start:378484,className:'green'},
+{id:33, content:'MED131-Propofol',start:378484,className:'green'},
+{id:34, content:'MED25-Heparin',start:378484,className:'green'},
+{id:35, content:'MED45-Insulin',start:378484,className:'green'},
+{id:36, content:'PROC100370',start:378484,className:'orange'},
+{id:37, content:'MED112-Amiodarone',start:378485,className:'green'},
+{id:38, content:'MED120-Levophed-k',start:378485,className:'green'},
+{id:39, content:'MED121-Nitroglycerine-k',start:378485,className:'green'},
+{id:40, content:'MED125-Milrinone',start:378485,className:'green'},
+{id:41, content:'MED131-Propofol',start:378485,className:'green'},
+{id:42, content:'MED25-Heparin',start:378485,className:'green'},
+{id:43, content:'MED45-Insulin',start:378485,className:'green'},
+{id:44, content:'PROC101868',start:378485,className:'orange'},
+{id:45, content:'MED112-Amiodarone',start:378486,className:'green'},
+{id:46, content:'MED121-Nitroglycerine-k',start:378486,className:'green'},
+{id:47, content:'MED131-Propofol',start:378486,className:'green'},
+{id:48, content:'MED25-Heparin',start:378486,className:'green'},
+{id:49, content:'MED45-Insulin',start:378486,className:'green'},
+{id:50, content:'PROC101780',start:378486,className:'orange'},
+{id:51, content:'MED121-Nitroglycerine-k',start:378487,className:'green'},
+{id:52, content:'MED25-Heparin',start:378487,className:'green'},
+{id:53, content:'MED45-Insulin',start:378487,className:'green'},
+{id:54, content:'MED25-Heparin',start:378488,className:'green'},
+{id:55, content:'MED45-Insulin',start:378488,end:378489,className:'green'},
+{id:56, content:'MED25-Heparin',start:378490,className:'green'},
+{id:57, content:'401.9-HYPERTENSION NOS',start:378564,className:'green'},
+{id:58, content:'427.31-ATRIAL FIBRILLATION',start:378564,className:'green'},
+{id:59, content:'MED121-Nitroglycerine-k',start:378564,className:'green'},
+{id:60, content:'MED122-Labetolol',start:378564,end:378565,className:'green'},
+{id:61, content:'PROC100327',start:378565,className:'orange'},
+{id:62, content:'MED121-Nitroglycerine-k',start:378566,className:'green'},
+{id:63, content:'MED122-Labetolol',start:378566,className:'green'},
+{id:64, content:'PROC100581',start:378566,className:'orange'},
+{id:65, content:'MED121-Nitroglycerine-k',start:378567,className:'green'},
+{id:66, content:'MED122-Labetolol',start:378567,className:'green'},
+{id:67, content:'MED121-Nitroglycerine-k',start:378569,end:378571,className:'green'},
+{id:68, content:'MED131-Propofol',start:378571,className:'green'},
+{id:69, content:'MED50-Nitroprusside',start:378571,className:'green'},
+{id:70, content:'PROC100617',start:378571,className:'orange'},
+{id:71, content:'MED50-Nitroprusside',start:378572,end:378574,className:'green'},
+{id:72, content:'PROC100574',start:378578,className:'orange'},
+{id:73, content:'401.9-HYPERTENSION NOS',start:379203,className:'orange'},
+{id:74, content:'427.31-ATRIAL FIBRILLATION',start:379203,className:'orange'},
+{id:75, content:'PROC100943',start:379203,className:'orange'},
+{id:76, content:'mortality-1',start:379433,className:'red'}]);
+  // Configuration for the Timeline
+  var options = {maxHeight:300,width:'90%',stack:true};
+
+  // Create a Timeline
+  var timeline1 = new vis.Timeline(container1, items1, options);
+  var timeline2 = new vis.Timeline(container2, items2, options);
+  var timeline3 = new vis.Timeline(container3, items3, options);
+  var timeline4 = new vis.Timeline(container4, items4, options);
+  var timeline5 = new vis.Timeline(container5, items5, options);
+
+
+  </script>
+</div>
+</html>

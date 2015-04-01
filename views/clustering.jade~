@@ -1,0 +1,6 @@
+extends layout
+
+block content
+  section.section
+    div.container
+      include clustering_elements/_clustering_elements.jade

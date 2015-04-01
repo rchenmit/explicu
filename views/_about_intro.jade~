@@ -1,0 +1,24 @@
+head
+
+div#about.featurette(align="center")
+  span#splashtitle
+    h1(style="color-blue" align="center") <font color="red">expl</font><font color="blue">ICU</font></h1>
+    br
+  span
+    h3(align="center") Empowering ICU staff with cutting edge visual analytics
+  br
+  div.row
+    img(src="/images/crash.jpg" style="height:200px")
+    img(src="/images/bigdatabrain.jpg" style="height:200px")
+    h3(align="center") Not only saving your patients, but saving your money too.
+    p(align="center") 
+      | Use explICU to figure out which patients are most likely to die urgently. 
+      br
+      | explICU helps you identify risk factors easily, and requires no data analysis on your part. 
+      br
+      | Save time. Save Patients. Save Money
+        
+hr
+
+br
+br

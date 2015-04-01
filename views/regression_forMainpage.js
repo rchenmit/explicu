@@ -10,7 +10,7 @@ new Morris.Bar({
 	{"Comorbidity": "Pulmonary Circulation Disorders", "p-Value" :0.906420422},
 	{"Comorbidity": "Kidney Failure", "p-Value" :3.134495108},
 	{"Comorbidity": "Chronic Pulmonary Disease", "p-Value" :2.501296975},
-	{"Comorbidity": "Congestive Heart Failure", "p-Value" :1.68E+01},
+	{"Comorbidity": "Heart Failure", "p-Value" :1.68E+01},
 	{"Comorbidity": "Coagulopathy", "p-Value" :3.897656936},
 	{"Comorbidity": "Deficiency Anemia", "p-Value" :0.55117303},
 	{"Comorbidity": "Metastatic Cancer", "p-Value" :1.63E+01},
@@ -23,5 +23,7 @@ new Morris.Bar({
   ykeys: ['p-Value'],
   // Labels for the ykeys -- will be displayed when you hover over the
   // chart.
-  labels: [' - log(P)']
+  labels: [' - log(P)'],
+  // font size
+  gridTextSize: 20
 });

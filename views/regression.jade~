@@ -1,0 +1,6 @@
+extends layout
+
+block content
+  section.section
+    div.container
+      include regression_elements/_regression_elements.jade

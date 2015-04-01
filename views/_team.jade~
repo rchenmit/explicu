@@ -1,0 +1,28 @@
+head
+  <style> img {height:140px}</style>
+
+div.featurette-light(align="center")
+  h1 Team
+  br
+  br
+
+  div.row(style="padding-left:20px; padding-right:20px")
+    div.col-md-3
+      img(src="/images/cross.jpg")
+      p
+        | Jitesh Jagadish
+    div.col-md-3
+      img(src="/images/cross.jpg")
+      p
+        | Vikas Kumar
+    div.col-md-3
+      img(src="/images/cross.jpg")
+      p
+        | Natalie Fitch
+    div.col-md-3
+      img(src="/images/cross.jpg")
+      p
+        | Robert Chen        
+
+  br
+  br

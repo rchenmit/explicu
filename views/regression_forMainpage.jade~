@@ -1,5 +1,5 @@
 // table for showing the logistic regression results
-h1 Example Predictive Modeling Visualization: P-values for important risk factors
+h1 Example Patient Timeline: P-values for important risk factors
 p The graph below shows the p-values obtained for each of 31 Elixhauser comorbidities, which were used as predictive features in multivariate logistic regression. 
 p <strong>How to read the graph</strong>: Higher values are <em>more</em> significant predictors of mortality.
 <div id="regression_bargraph_pvalue" style="height:450px"></div>

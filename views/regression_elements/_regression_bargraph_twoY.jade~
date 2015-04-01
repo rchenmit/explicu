@@ -1,0 +1,7 @@
+// table for showing the logistic regression results
+
+<div id="regression_bargraph" style="height:450px"></div>
+
+script
+  include morris_regression_bargraph.js
+

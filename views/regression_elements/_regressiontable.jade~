@@ -1,0 +1,7 @@
+// table for showing the logistic regression results
+
+<div id="regressiontable"></div>
+
+script
+  include regression_elements/regressiontable.js
+

@@ -1,4 +1,0 @@
-div.timeline_viz
-  h1 Example Patient Timeline:
-  div#visualization1
-  script(src="/javascripts/timeline_forMainpage.js")

@@ -34,7 +34,7 @@ We implemented an extensive javascript back end in order to launch a web server 
 
         $ npm start
 
-    This launches on port 8080. You can change the port via the **/bin/www** file. Replace 8080 with the desired port.
+    This launches on port 8080. You can change the port via the **/bin/www** file which has the code for launching the web service with express. Replace 8080 with the desired port.
     
     
     ```javascript

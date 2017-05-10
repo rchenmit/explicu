@@ -51,13 +51,25 @@ Most of the code base can be generated with npm /  express-generator, see the fo
 
 Implementation details below.
 
+### Templating
+
+Currently using Jade. There are many other choices as well:
+
+https://colorlib.com/wp/top-templating-engines-for-javascript/
+
+### Front end
+
+* Viz: D3.js, morris.js, viz.js
+* Bootstrap
+
+
 ### API
 
 Code for API calls are in /routes/index.js.
 
 #### Database
 
-The database this is currently connected to is: 
+The database this is currently connected to is a mongodb database: 
 
 ```javascript
 var mongo_conn="mongodb://readonly:readonly@ds049631.mongolab.com:49631/heroku_app33408747";
@@ -65,6 +77,11 @@ var MongoClient = require('mongodb').MongoClient;
 ```
 
 If you want to connect your own, simply replace the database address. 
+
+If using other types of databases, you may find these helpful:
+
+* Postgres: http://mherman.org/blog/2016/03/13/designing-a-restful-api-with-node-and-postgres/#.WRKTz1PyvzI
+* MySQL: https://jinalshahblog.wordpress.com/2016/10/06/rest-api-using-node-js-and-mysql/
 
 #### Requests 
 
